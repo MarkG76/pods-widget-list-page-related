@@ -1,10 +1,12 @@
 <?php
 /* Plugin Name: Pods Page-related List Widget 
 Plugin URI: http://giannopoulos.net
-Description: Display multiple Pod items, related to the current page. Based on the PODS Framework http://podsframework.org/
+Description: Display multiple Pod items, related to the current page. Based on (and requires) the PODS Framework http://podsframework.org/
 Version: 0.1
 Author: Markos Giannopoulos
 Author URI: http://giannopoulos.net
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 class PodsWidgetListPageRelated extends WP_Widget {
@@ -30,8 +32,8 @@ class PodsWidgetListPageRelated extends WP_Widget {
 		global $wp_query;
 		$object_id = $wp_query->get_queried_object_id();
 
-		$where1 = trim( pods_var_raw( 'where', $instance, '' ) );
-		$where1 = $where1 . " and " . pods_var_raw( 'page_field', $instance, '' ) .".ID = ". $object_id ." ";
+		$where = trim( pods_var_raw( 'where', $instance, '' ) );
+		$where = $where . " and " . pods_var_raw( 'page_field', $instance, '' ) .".ID = ". $object_id ." ";
 		//echo "<!-- pods30 ".$where1." ++ ".pods_var_raw( 'page_field', $instance, '' )." // ".$object_id." -->";
 		
         // Get widget fields
@@ -42,7 +44,7 @@ class PodsWidgetListPageRelated extends WP_Widget {
             'template' => trim( pods_var_raw( 'template', $instance, '' ) ),
             'limit' => (int) pods_var_raw( 'limit', $instance, 15, null, true ),
             'orderby' => trim( pods_var_raw( 'orderby', $instance, '' ) ),
-            'where' => $where1
+            'where' => $where
         );
 
         $content = trim( pods_var_raw( 'template_custom', $instance, '' ) );
