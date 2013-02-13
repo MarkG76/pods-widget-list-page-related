@@ -29,12 +29,13 @@ class PodsWidgetListPageRelated extends WP_Widget {
     public function widget ( $args, $instance ) {
         extract( $args );
 
+		// Find where we are
 		global $wp_query;
 		$object_id = $wp_query->get_queried_object_id();
 
+		// Take where field and add the page relation part
 		$where = trim( pods_var_raw( 'where', $instance, '' ) );
 		$where = $where . " and " . pods_var_raw( 'page_field', $instance, '' ) .".ID = ". $object_id ." ";
-		//echo "<!-- pods30 ".$where1." ++ ".pods_var_raw( 'page_field', $instance, '' )." // ".$object_id." -->";
 		
         // Get widget fields
         $title = apply_filters( 'widget_title', $instance[ 'title' ] );
@@ -48,13 +49,10 @@ class PodsWidgetListPageRelated extends WP_Widget {
         );
 
         $content = trim( pods_var_raw( 'template_custom', $instance, '' ) );
-        if(!$content) $content = "No related items";
-        echo "<!-- pods30 start -->";
 
         if ( 0 < strlen( $args[ 'name' ] ) && ( 0 < strlen( $args[ 'template' ] ) || 0 < strlen( $content ) ) ) {
             require 'ui_front_widgets.php';
         }
-        echo "<!-- pods30 end -->";
 
     }
 
