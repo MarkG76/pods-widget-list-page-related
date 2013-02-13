@@ -1,9 +1,20 @@
 <?php
-    echo $before_widget;
 
-    if ( !empty( $title ) )
-        echo $before_title . $title . $after_title;
+    $result = pods_shortcode( $args, ( isset( $content ) ? $content : null ) );
 
-    echo pods_shortcode( $args, ( isset( $content ) ? $content : null ) );
+	if(!$result) {
 
-    echo $after_widget;
+		//	$result="Nothing to show";
+
+	} else {
+
+		echo $before_widget;
+	
+		if ( !empty( $title ) )
+			echo $before_title . $title . $after_title;
+
+		echo $result;
+
+		echo $after_widget;
+
+    }
